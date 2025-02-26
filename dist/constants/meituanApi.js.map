@@ -1,0 +1,1 @@
+{"version":3,"file":"meituanApi.js","sourceRoot":"","sources":["../../src/constants/meituanApi.ts"],"names":[],"mappings":";;;AAAA,MAAM,kBAAkB,GAAG,qCAAqC,CAAC;AAEpD,QAAA,UAAU,GAAG;IAExB,UAAU,EAAE,kBAAkB,GAAG,cAAc;IAE/C,SAAS,EAAE,kBAAkB,GAAG,aAAa;CAC9C,CAAC"}
