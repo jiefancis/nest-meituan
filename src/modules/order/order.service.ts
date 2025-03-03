@@ -16,16 +16,10 @@ export class OrderService extends BaseCallbackService {
     this.appSecret = this.configService.get<string>('MEITUAN_APP_SECRET');
   }
   async orderCreate() {
-    return await createOrder('', {
-      appSecret: this.appSecret,
-      appKey: this.appKey,
-    });
+    return await createOrder('');
   }
 
   async orderQueryStatus(shopId: string) {
-    return await queryOrderStatus(shopId, {
-      appSecret: this.appSecret,
-      appKey: this.appKey,
-    });
+    return await queryOrderStatus(shopId);
   }
 }

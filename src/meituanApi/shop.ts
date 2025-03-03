@@ -1,7 +1,7 @@
 import { PEISONTAPI } from '@constants/meituanApi';
 import request from '@utils/request';
 
-export const createShop = async (params, { appSecret, appKey }) => {
+export const createShop = async (params) => {
   try {
     let param: any = {
       shop_id: '40002',
@@ -28,7 +28,7 @@ export const createShop = async (params, { appSecret, appKey }) => {
   }
 };
 
-export const queryShop = async (shopId, { appSecret, appKey }) => {
+export const queryShop = async (shopId) => {
   try {
     let data: any = {
       shop_id: shopId || 'test_0001',

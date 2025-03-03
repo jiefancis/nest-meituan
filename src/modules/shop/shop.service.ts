@@ -15,17 +15,11 @@ export class ShopService extends BaseCallbackService {
     this.appSecret = this.configService.get<string>('MEITUAN_APP_SECRET');
   }
   async shopCreate() {
-    return await createShop('', {
-      appSecret: this.appSecret,
-      appKey: this.appKey,
-    });
+    return await createShop('');
   }
 
   async shopQuery(shopId: string) {
-    return await queryShop(shopId, {
-      appSecret: this.appSecret,
-      appKey: this.appKey,
-    });
+    return await queryShop(shopId);
   }
   checkSignature(data: any) {
     return true;
