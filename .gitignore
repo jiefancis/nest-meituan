@@ -1,2 +1,10 @@
 logs/
 .history/
+dist/
+node_modules/
+./.idea/
+./.vscode/
+./.DS_Store
+
+
+.env.local

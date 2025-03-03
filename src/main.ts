@@ -59,6 +59,9 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const port = configService.get('PORT', 3000);
 
+  const dataUrl = configService.get('DATABASE_URL');
+  console.log(process.env.DATABASE_URL, 'dataUrl::', dataUrl);
+
   await app.listen(port);
   console.log(`app is running at ${port}`);
 }

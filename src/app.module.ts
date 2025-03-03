@@ -11,7 +11,7 @@ import { OrderModule } from '@modules/order/order.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: [`.env.${process.env.NODE_ENV}}`, '.env', '.env.local'],
+      envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
     CacheModule.register({
       isGlobal: true,
@@ -21,7 +21,6 @@ import { OrderModule } from '@modules/order/order.module';
     AuthModule,
     ShopModule,
     OrderModule,
-    // BaseCallbackModule,
   ],
 })
 export class AppModule {}
