@@ -1,8 +1,5 @@
-import axios from 'axios';
 import { PEISONTAPI } from '@constants/meituanApi';
-
-import { generateSign } from '@utils/sign';
-import * as qs from 'qs';
+import request from '@utils/request';
 
 export const createOrder = async (params, { appSecret, appKey }) => {
   try {
@@ -39,21 +36,9 @@ export const createOrder = async (params, { appSecret, appKey }) => {
       rider_pick_method: 0,
       //   tip_amount: 3,
       goods_code_switch: 0,
-      version: '1.0',
-      timestamp: Math.floor(Date.now() / 1000),
-      appkey: appKey,
     };
-    const sign = generateSign(param, appSecret);
-    param.sign = sign;
 
-    // console.log(qs.stringify(param), 'param', param);
-
-    const res = await axios.post(PEISONTAPI.orderCreate, qs.stringify(param), {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
-    return res;
+    return await request.post(PEISONTAPI.orderCreate, param);
   } catch (error) {
     console.log('catch--error', error);
   }
@@ -64,25 +49,9 @@ export const queryOrderStatus = async (params, { appSecret, appKey }) => {
     let param: any = {
       delivery_id: 48370743,
       mt_peisong_id: '1741001386494001030',
-      version: '1.0',
-      timestamp: Math.floor(Date.now() / 1000),
-      appkey: appKey,
     };
-    const sign = generateSign(param, appSecret);
-    param.sign = sign;
 
-    // console.log(qs.stringify(param), 'param', param);
-
-    const res = await axios.post(
-      PEISONTAPI.orderStatusQuery,
-      qs.stringify(param),
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      },
-    );
-    return res;
+    return await request.post(PEISONTAPI.orderStatusQuery, param);
   } catch (error) {
     console.log('catch--error', error);
   }

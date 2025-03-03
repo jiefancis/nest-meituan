@@ -1,8 +1,5 @@
-import axios from 'axios';
 import { PEISONTAPI } from '@constants/meituanApi';
-
-import { generateSign } from '@utils/sign';
-import * as qs from 'qs';
+import request from '@utils/request';
 
 export const createShop = async (params, { appSecret, appKey }) => {
   try {
@@ -23,21 +20,9 @@ export const createShop = async (params, { appSecret, appKey }) => {
       business_hours: JSON.stringify([
         { beginTime: '00:00', endTime: '23:59' },
       ]), //'营业时间'
-      version: '1.0',
-      timestamp: Math.floor(Date.now() / 1000),
-      appkey: appKey,
     };
-    const sign = generateSign(param, appSecret);
-    param.sign = sign;
 
-    // console.log(qs.stringify(param), 'param', param);
-
-    const res = await axios.post(PEISONTAPI.shopCreate, qs.stringify(param), {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
-    return res;
+    return await request.post(PEISONTAPI.shopCreate, param);
   } catch (error) {
     console.log('catch--error', error);
   }
@@ -47,20 +32,9 @@ export const queryShop = async (shopId, { appSecret, appKey }) => {
   try {
     let data: any = {
       shop_id: shopId || 'test_0001',
-      version: '1.0',
-      timestamp: Math.floor(Date.now() / 1000),
-      appkey: appKey,
     };
-    const sign = generateSign(data, appSecret);
-    data.sign = sign;
 
-    const res = await axios.post(PEISONTAPI.shopQuery, qs.stringify(data), {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
-
-    return res;
+    return await request.post(PEISONTAPI.shopQuery, data);
   } catch (error) {
     console.log('catch--error', error);
   }
