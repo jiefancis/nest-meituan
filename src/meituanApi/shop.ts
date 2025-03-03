@@ -12,10 +12,10 @@ export const createShop = async (params, { appSecret, appKey }) => {
       category: 110, //'int 一级分类，相见分类品类说明',
       second_category: 110002, // 'int 二级分类，相见分类品类说明',
       contact_name: '咸鱼梦想家',
-      contact_phone: '13000000000',
-      contact_email: 'demo@xianyu.com', //'（？？可选）门店联系人邮箱',
-      shop_address: '咸鱼梦想家门店',
-      shop_address_detail: '咸鱼梦想家门店8号铺', // '（？？可选）门牌号',
+      contact_phone: '13626753870',
+      contact_email: 'dev@guomingju.com', //'（？？可选）门店联系人邮箱',
+      shop_address: '果茗星外卖店 - 绍兴菓茗聚餐饮管理有限公司',
+      shop_address_detail: '果茗星外卖店8号铺', // '（？？可选）门牌号',
       shop_lng: 116299545, //'门店经度',
       shop_lat: 39922477, // '门店维度',
       coordinate_type: 0, //'int 坐标类型 火星坐标-高德，腾讯0 / 1百度坐标',
@@ -29,7 +29,9 @@ export const createShop = async (params, { appSecret, appKey }) => {
     };
     const sign = generateSign(param, appSecret);
     param.sign = sign;
-    
+
+    // console.log(qs.stringify(param), 'param', param);
+
     const res = await axios.post(PEISONTAPI.shopCreate, qs.stringify(param), {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',

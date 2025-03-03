@@ -1,18 +1,19 @@
 import { Body, Controller, Get, Post, Req, Request, Res } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { ShopService } from './shop.service';
+import { OrderService } from './order.service';
 import { generateSign } from '@utils/sign';
 
-@Controller('shop')
-export class ShopController {
+@Controller('order')
+export class OrderController {
   constructor(
-    private readonly shopService: ShopService,
+    private readonly orderService: OrderService,
     private readonly configService: ConfigService,
+    private readonly orderservice: OrderService,
   ) {}
   @Get('create')
-  async shopCreate() {
+  async orderCreate() {
     try {
-      const res = await this.shopService.shopCreate();
+      const res: any = await this.orderService.orderCreate();
       if (res.status === 200) {
         return res.data;
       }
@@ -27,10 +28,10 @@ export class ShopController {
     }
   }
 
-  @Get('query')
-  async shopQuery(@Req() req: Request) {
+  @Get('queryStatus')
+  async orderQuery(@Req() req: Request) {
     try {
-      const res = await this.shopService.shopQuery('');
+      const res: any = await this.orderService.orderQueryStatus('');
       if (res.status === 200) {
         return res.data;
       }
@@ -46,9 +47,9 @@ export class ShopController {
   }
 
   @Post('status/callback')
-  async shopStatusCallback(@Body() formData: Record<string, any>) {
+  async orderStatusCallback(@Body() formData: Record<string, any>) {
     try {
-      let resData = this.shopService.checkSignature(formData)
+      let resData = this.orderservice.checkSignature(formData)
         ? { code: 0, message: '接口请求成功' }
         : { code: 500, message: '接口请求失败' };
 
@@ -61,10 +62,10 @@ export class ShopController {
     }
   }
 
-  @Post('deliveryRange/callback')
-  async shopDeliveryCallback(@Body() formData: Record<string, any>) {
+  @Post('exception/callback')
+  async orderExceptionCallback(@Body() formData: Record<string, any>) {
     try {
-      let resData = this.shopService.checkSignature(formData)
+      let resData = this.orderservice.checkSignature(formData)
         ? { code: 0, message: '接口请求成功' }
         : { code: 500, message: '接口请求失败' };
 
@@ -77,26 +78,10 @@ export class ShopController {
     }
   }
 
-  @Post('deliveryRisk/callback')
-  async shopDeliveryRiskCallback(@Body() formData: Record<string, any>) {
+  @Post('mealloss/callback')
+  async orderMeallossCallback(@Body() formData: Record<string, any>) {
     try {
-      let resData = this.shopService.checkSignature(formData)
-        ? { code: 0, message: '接口请求成功' }
-        : { code: 500, message: '接口请求失败' };
-
-      return resData;
-    } catch (error) {
-      return {
-        code: 500,
-        message: error,
-      };
-    }
-  }
-
-  @Post('deliverymanClock/callback')
-  async shopDeliveryManClockCallback(@Body() formData: Record<string, any>) {
-    try {
-      let resData = this.shopService.checkSignature(formData)
+      let resData = this.orderservice.checkSignature(formData)
         ? { code: 0, message: '接口请求成功' }
         : { code: 500, message: '接口请求失败' };
 

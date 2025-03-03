@@ -4,7 +4,6 @@ function isObject(o) {
   return typeof o === 'object' && o !== null;
 }
 
-// 生成签名
 export function generateSign(params, appSecret) {
   if (isObject(params)) {
     // 排序参数

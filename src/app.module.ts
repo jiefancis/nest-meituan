@@ -5,12 +5,13 @@ import { AuthModule } from './modules/auth/auth.module';
 import { PrismaModule } from './modules/prisma/prisma.module';
 import { RedisModule } from './modules/redis/redis.module';
 import { ShopModule } from '@modules/shop/shop.module';
+import { OrderModule } from '@modules/order/order.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: [`.env.${process.env.NODE_ENV}}`, '.env'],
+      envFilePath: [`.env.${process.env.NODE_ENV}}`, '.env', '.env.local'],
     }),
     CacheModule.register({
       isGlobal: true,
@@ -19,6 +20,8 @@ import { ShopModule } from '@modules/shop/shop.module';
     RedisModule,
     AuthModule,
     ShopModule,
+    OrderModule,
+    // BaseCallbackModule,
   ],
 })
 export class AppModule {}
