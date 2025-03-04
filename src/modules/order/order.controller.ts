@@ -14,7 +14,7 @@ export class OrderController {
   async orderCreate() {
     try {
       const res: any = await this.orderService.orderCreate();
-      if (res.status === 200) {
+      if (res.code === 0) {
         return res.data;
       }
       return res?.data;
@@ -32,7 +32,7 @@ export class OrderController {
   async orderQuery(@Req() req: Request) {
     try {
       const res: any = await this.orderService.orderQueryStatus('');
-      if (res.status === 200) {
+      if (res.code === 0) {
         return res.data;
       }
       return res?.data;

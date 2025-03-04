@@ -3,7 +3,7 @@ import * as qs from 'qs';
 import { MEITUAN_API_PREFIX } from '@constants/meituanApi';
 import { generateSign } from '@utils/sign';
 
-const mergeParams = (data) => {
+export const mergeParams = (data) => {
   const appKey = process.env.MEITUAN_APP_KEY;
   const appSecret = process.env.MEITUAN_APP_SECRET;
 
@@ -40,8 +40,7 @@ instance.interceptors.request.use((config) => {
 });
 
 instance.interceptors.response.use((res) => {
-  //   console.log('res::', res);
-  return res;
+  return res.data;
 });
 
 export default instance;

@@ -2,12 +2,15 @@ export const MEITUAN_API_PREFIX = 'https://peisongopen.meituan.com/api';
 
 export const PEISONTAPI = {
   // 创建门店
-  shopCreate: MEITUAN_API_PREFIX + '/shop/create',
+  shopCreate: '/shop/create',
   // 门店信息
-  shopQuery: MEITUAN_API_PREFIX + '/shop/query',
+  shopQuery: '/shop/query',
 
   // 订单创建
-  orderCreate: MEITUAN_API_PREFIX + '/order/createByShop',
+  orderCreate: '/order/createByShop',
   // 订单查询
-  orderStatusQuery: MEITUAN_API_PREFIX + '/order/status/query',
+  orderStatusQuery: '/order/status/query',
+
+  // 图片上传
+  fileImageUpload: '/file/image/upload',
 };

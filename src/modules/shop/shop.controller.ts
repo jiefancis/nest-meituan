@@ -12,8 +12,8 @@ export class ShopController {
   @Get('create')
   async shopCreate() {
     try {
-      const res = await this.shopService.shopCreate();
-      if (res.status === 200) {
+      const res: any = await this.shopService.shopCreate();
+      if (res.code === 0) {
         return res.data;
       }
       return res?.data;
@@ -30,8 +30,8 @@ export class ShopController {
   @Get('query')
   async shopQuery(@Req() req: Request) {
     try {
-      const res = await this.shopService.shopQuery('');
-      if (res.status === 200) {
+      const res: any = await this.shopService.shopQuery('');
+      if (res.code === 0) {
         return res.data;
       }
       return res?.data;

@@ -6,12 +6,16 @@ import { PrismaModule } from './modules/prisma/prisma.module';
 import { RedisModule } from './modules/redis/redis.module';
 import { ShopModule } from '@modules/shop/shop.module';
 import { OrderModule } from '@modules/order/order.module';
+import { FileUploadModule } from '@modules/fileUpload/fileUpload.module';
 
+const envs = ['local', 'development', 'production'];
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: `.env.${process.env.NODE_ENV}`,
+      envFilePath: envs.includes(process.env.NODE_ENV)
+        ? `.env.${process.env.NODE_ENV}`
+        : '.env.local',
     }),
     CacheModule.register({
       isGlobal: true,
@@ -21,6 +25,7 @@ import { OrderModule } from '@modules/order/order.module';
     AuthModule,
     ShopModule,
     OrderModule,
+    FileUploadModule,
   ],
 })
 export class AppModule {}
