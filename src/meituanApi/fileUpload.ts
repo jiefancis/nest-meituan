@@ -9,7 +9,6 @@ interface IFileImageUpload {
   image_data: string;
 }
 
-// 图片上传
 export const fileImageUpload = async (params: IFileImageUpload) => {
   const { data, appSecret } = mergeParams({ image_name: params.image_name });
   data.sign = generateSign(data, appSecret);

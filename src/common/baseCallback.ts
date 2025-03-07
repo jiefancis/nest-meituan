@@ -16,7 +16,7 @@ export class BaseCallbackService {
       const appSecret = this.configService.get<string>('MEITUAN_APP_SECRET');
 
       const sign = generateSign(formData, appSecret);
-      console.log('formData::', formData, sign === clientSign);
+      // console.log('formData::', formData, sign === clientSign);
 
       return sign === clientSign;
     } catch (error) {

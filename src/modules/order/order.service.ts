@@ -1,5 +1,13 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { createOrder, queryOrderStatus } from '@meituanApi/order';
+import {
+  createOrder,
+  queryOrderStatus,
+  orderPreCreateByShop,
+  queryOrderRiderLocation,
+  orderDelete,
+  saveMealCodeByPkgId,
+  orderRiderLocationH5,
+} from '@meituanApi/order';
 import { ConfigService } from '@nestjs/config';
 // import { InjectLogger } from '@nestjs/common/services';
 import { BaseCallbackService } from '@common/baseCallback';
@@ -15,11 +23,30 @@ export class OrderService extends BaseCallbackService {
     this.appKey = this.configService.get<string>('MEITUAN_APP_KEY');
     this.appSecret = this.configService.get<string>('MEITUAN_APP_SECRET');
   }
-  async orderCreate() {
-    return await createOrder('');
+  async orderPreCreateByShop(data) {
+    return await orderPreCreateByShop(data);
+  }
+  async orderCreate(data) {
+    return await createOrder(data);
   }
 
-  async orderQueryStatus(shopId: string) {
-    return await queryOrderStatus(shopId);
+  async orderQueryStatus(data: { delivery_id: number; mt_peisong_id: string }) {
+    return await queryOrderStatus(data);
+  }
+
+  async orderRiderLocation(data) {
+    return await queryOrderRiderLocation(data);
+  }
+
+  async orderCancel(data) {
+    return await orderDelete(data);
+  }
+
+  async saveMealCodeByPkgId(data) {
+    return await saveMealCodeByPkgId(data);
+  }
+
+  async orderRiderLocationH5(mt_peisong_id) {
+    return await orderRiderLocationH5({ mt_peisong_id });
   }
 }

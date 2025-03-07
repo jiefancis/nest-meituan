@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Post, Req, Request, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { OrderService } from './order.service';
-import { generateSign } from '@utils/sign';
+import { OrderStatusQueryDto } from './dto/status-query.dto';
 
 @Controller('order')
 export class OrderController {
@@ -10,14 +10,24 @@ export class OrderController {
     private readonly configService: ConfigService,
     private readonly orderservice: OrderService,
   ) {}
-  @Get('create')
-  async orderCreate() {
+
+  @Post('preCreateByShop')
+  async orderPreCreateByShop(@Body() data) {
     try {
-      const res: any = await this.orderService.orderCreate();
-      if (res.code === 0) {
-        return res.data;
-      }
-      return res?.data;
+      return await this.orderService.orderPreCreateByShop(data);
+    } catch (error) {
+      // 处理错误
+      console.error('preCreateByShop-controller--error', error);
+      return {
+        code: 500,
+        message: error,
+      };
+    }
+  }
+  @Post('create')
+  async orderCreate(@Body() data) {
+    try {
+      return await this.orderService.orderCreate(data);
     } catch (error) {
       // 处理错误
       console.error('controller--error', error);
@@ -28,14 +38,10 @@ export class OrderController {
     }
   }
 
-  @Get('queryStatus')
-  async orderQuery(@Req() req: Request) {
+  @Get('status/query')
+  async orderQuery(@Query() query: OrderStatusQueryDto) {
     try {
-      const res: any = await this.orderService.orderQueryStatus('');
-      if (res.code === 0) {
-        return res.data;
-      }
-      return res?.data;
+      return await this.orderService.orderQueryStatus(query);
     } catch (error) {
       // 处理错误
       console.error('controller--error', error);
@@ -44,6 +50,44 @@ export class OrderController {
         message: error,
       };
     }
+  }
+
+  @Get('rider/location')
+  async orderRiderLocation(@Query() query: OrderStatusQueryDto) {
+    try {
+      return await this.orderService.orderRiderLocation(query);
+    } catch (error) {
+      // 处理错误
+      console.error('order/rider/location--error', error);
+      return {
+        code: 500,
+        message: error,
+      };
+    }
+  }
+
+  @Post('cancel')
+  async orderDelete(@Body() data) {
+    try {
+      return await this.orderService.orderCancel(data);
+    } catch (error) {
+      // 处理错误
+      console.error('controller--error', error);
+      return {
+        code: 500,
+        message: error,
+      };
+    }
+  }
+
+  @Post('mealCode/saveMealCodeByPkgId')
+  async saveMealCodeByPkgId(@Body() data) {
+    return this.orderService.saveMealCodeByPkgId(data);
+  }
+
+  @Get('rider/location/h5')
+  async orderRiderLocationH5(@Query('mt_peisong_id') mtPeisongId: string) {
+    return await this.orderService.orderRiderLocationH5(mtPeisongId);
   }
 
   @Post('status/callback')

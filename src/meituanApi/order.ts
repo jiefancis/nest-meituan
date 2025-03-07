@@ -1,6 +1,18 @@
 import { PEISONTAPI } from '@constants/meituanApi';
 import request from '@utils/request';
 
+export const orderPreCreateByShop = async (data) => {
+  try {
+    return await request({
+      url: PEISONTAPI.orderPreCreateByShop,
+      method: 'post',
+      data,
+    });
+  } catch (error) {
+    console.log('orderPreCreateByShop--error', error);
+  }
+};
+
 export const createOrder = async (params) => {
   try {
     let param: any = {
@@ -38,21 +50,62 @@ export const createOrder = async (params) => {
       goods_code_switch: 0,
     };
 
-    return await request.post(PEISONTAPI.orderCreate, param);
+    return await request.post(PEISONTAPI.orderCreate, params);
   } catch (error) {
-    console.log('catch--error', error);
+    console.log('createOrder--error', error);
   }
 };
 
 export const queryOrderStatus = async (params) => {
   try {
-    let param: any = {
-      delivery_id: 48370743,
-      mt_peisong_id: '1741001386494001030',
-    };
+    // let param: any = {
+    //   delivery_id: 48370743,
+    //   mt_peisong_id: '1741001386494001030',
+    // };
 
-    return await request.post(PEISONTAPI.orderStatusQuery, param);
+    return await request.post(PEISONTAPI.orderStatusQuery, params);
   } catch (error) {
-    console.log('catch--error', error);
+    console.log('queryOrderStatus--error', error);
+  }
+};
+
+export const queryOrderRiderLocation = async (params) => {
+  try {
+    // let param: any = {
+    //   delivery_id: 48370743,
+    //   mt_peisong_id: '1741001386494001030',
+    // };
+
+    return await request.post(PEISONTAPI.orderRiderLocation, params);
+  } catch (error) {
+    console.log('orderRiderLocation--error', error);
+  }
+};
+
+export const orderDelete = async (params) => {
+  try {
+    return await request.post(PEISONTAPI.orderDelete, params);
+  } catch (error) {
+    console.log('orderRiderLocation--error', error);
+  }
+};
+
+export const saveMealCodeByPkgId = async (data) => {
+  try {
+    return await request.post(PEISONTAPI.mealCode, data);
+  } catch (error) {
+    console.log('saveMealCodeByPkgId--error', error);
+  }
+};
+
+export const orderRiderLocationH5 = async (data) => {
+  try {
+    return await request({
+      url: PEISONTAPI.orderRiderLocationH5,
+      method: 'post',
+      data,
+    });
+  } catch (error) {
+    console.log('saveMealCodeByPkgId--error', error);
   }
 };

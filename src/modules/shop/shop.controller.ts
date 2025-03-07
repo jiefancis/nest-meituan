@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Post, Req, Request, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Query,
+  Req,
+  Request,
+  Res,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ShopService } from './shop.service';
 import { generateSign } from '@utils/sign';
@@ -9,14 +18,24 @@ export class ShopController {
     private readonly shopService: ShopService,
     private readonly configService: ConfigService,
   ) {}
-  @Get('create')
-  async shopCreate() {
+  @Post('create')
+  async shopCreate(@Body() data: Record<string, any>) {
     try {
-      const res: any = await this.shopService.shopCreate();
-      if (res.code === 0) {
-        return res.data;
-      }
-      return res?.data;
+      return await this.shopService.shopCreate(data);
+    } catch (error) {
+      // 处理错误
+      console.error('controller--error', error);
+      return {
+        code: 500,
+        message: error,
+      };
+    }
+  }
+
+  @Post('update')
+  async shopUpdate(@Body() data: Record<string, any>) {
+    try {
+      return await this.shopService.shopUpdate(data);
     } catch (error) {
       // 处理错误
       console.error('controller--error', error);
@@ -28,13 +47,43 @@ export class ShopController {
   }
 
   @Get('query')
-  async shopQuery(@Req() req: Request) {
+  async shopQuery(@Query('shopId') shop_id: string) {
     try {
-      const res: any = await this.shopService.shopQuery('');
-      if (res.code === 0) {
-        return res.data;
-      }
-      return res?.data;
+      return await this.shopService.shopQuery(shop_id);
+    } catch (error) {
+      // 处理错误
+      console.error('controller--error', error);
+      return {
+        code: 500,
+        message: error,
+      };
+    }
+  }
+
+  @Get('area/query')
+  async shopAreaQuery(
+    @Query('shopId') shop_id: string,
+    @Query('deliveryServiceCode') delivery_service_code: number,
+  ) {
+    try {
+      return await this.shopService.shopAreaQuery({
+        shop_id,
+        delivery_service_code,
+      });
+    } catch (error) {
+      // 处理错误
+      console.error('controller--error', error);
+      return {
+        code: 500,
+        message: error,
+      };
+    }
+  }
+
+  @Get('balance/query')
+  async shopBalanceQuery(@Query('shopId') shop_id: string) {
+    try {
+      return await this.shopService.shopBalanceQuery(shop_id);
     } catch (error) {
       // 处理错误
       console.error('controller--error', error);

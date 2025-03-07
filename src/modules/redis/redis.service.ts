@@ -12,6 +12,7 @@ export class RedisService implements OnModuleDestroy {
     // private readonly logger: LoggerService,
   ) {
     this.redis = new Redis(this.configService.get('REDIS_URL'));
+    // console.log('redis', this.redis);
     // this.redis.on('error', (err) => {
     //   this.logger.error('Redis error::', err);
     // });

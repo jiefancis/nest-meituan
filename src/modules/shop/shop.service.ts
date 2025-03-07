@@ -1,5 +1,11 @@
 import { Injectable, Inject, LoggerService } from '@nestjs/common';
-import { createShop, queryShop } from '@meituanApi/shop';
+import {
+  createShop,
+  queryShop,
+  updateShop,
+  shopAreaQuery,
+  shopBalanceQuery,
+} from '@meituanApi/shop';
 import { ConfigService } from '@nestjs/config';
 import { BaseCallbackService } from '@common/baseCallback';
 import { Logger } from 'winston';
@@ -14,14 +20,21 @@ export class ShopService extends BaseCallbackService {
     this.appKey = this.configService.get<string>('MEITUAN_APP_KEY');
     this.appSecret = this.configService.get<string>('MEITUAN_APP_SECRET');
   }
-  async shopCreate() {
-    return await createShop('');
+  async shopCreate(data) {
+    return await createShop(data);
   }
 
   async shopQuery(shopId: string) {
     return await queryShop(shopId);
   }
-  checkSignature(data: any) {
-    return true;
+
+  async shopUpdate(data: Record<string, any>) {
+    return await updateShop(data);
+  }
+  async shopAreaQuery(data: Record<string, any>) {
+    return await shopAreaQuery(data);
+  }
+  async shopBalanceQuery(shopId) {
+    return await shopBalanceQuery(shopId);
   }
 }

@@ -20,24 +20,24 @@ export class FileUploadController {
       const base64 = prefix + file.buffer.toString('base64');
 
       try {
-        const res: any = await fileImageUpload({
+        return await fileImageUpload({
           image_name: file.originalname,
           image_data: base64,
         });
 
-        if (res.code === 0) {
-          return {
-            code: 200,
-            message: '上传成功',
-            data: res?.data?.fileKey,
-          };
-        }
+        // if (res.code === 0) {
+        //   return {
+        //     code: 200,
+        //     message: '上传成功',
+        //     data: res?.data?.fileKey,
+        //   };
+        // }
 
-        return {
-          code: 500,
-          message: '上传失败',
-          data: null,
-        };
+        // return {
+        //   code: 500,
+        //   message: '上传失败',
+        //   data: null,
+        // };
       } catch (error) {
         return {
           code: 500,
@@ -46,6 +46,7 @@ export class FileUploadController {
         };
       }
     }
+
     return {
       code: 500,
       message:

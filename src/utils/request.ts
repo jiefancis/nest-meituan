@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import * as qs from 'qs';
 import { MEITUAN_API_PREFIX } from '@constants/meituanApi';
 import { generateSign } from '@utils/sign';
@@ -36,11 +36,12 @@ instance.interceptors.request.use((config) => {
     }
   }
 
+  // console.log('interceptors--config::', config);
   return config;
 });
 
-instance.interceptors.response.use((res) => {
-  return res.data;
+instance.interceptors.response.use((res: AxiosResponse<any, any>) => {
+  return res?.data;
 });
 
 export default instance;
