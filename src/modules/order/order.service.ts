@@ -29,7 +29,7 @@ export class OrderService extends BaseCallbackService {
     return await createOrder(data);
   }
 
-  async orderQueryStatus(data: { delivery_id: number; mt_peisong_id: string }) {
+  async orderQueryStatus(data) {
     return await queryOrderStatus(data);
   }
 

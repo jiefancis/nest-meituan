@@ -15,7 +15,7 @@ const envs = ['local', 'development', 'production'];
       isGlobal: true,
       envFilePath: envs.includes(process.env.NODE_ENV)
         ? `.env.${process.env.NODE_ENV}`
-        : '.env.local',
+        : '.env.development',
     }),
     CacheModule.register({
       isGlobal: true,
