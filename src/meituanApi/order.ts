@@ -97,15 +97,3 @@ export const saveMealCodeByPkgId = async (data) => {
     console.log('saveMealCodeByPkgId--error', error);
   }
 };
-
-export const orderRiderLocationH5 = async (data) => {
-  try {
-    return await request({
-      url: PEISONTAPI.orderRiderLocationH5,
-      method: 'post',
-      data,
-    });
-  } catch (error) {
-    console.log('saveMealCodeByPkgId--error', error);
-  }
-};

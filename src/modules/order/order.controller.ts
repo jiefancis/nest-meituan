@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post, Query } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { OrderService } from './order.service';
 import { OrderStatusQueryDto } from './dto/status-query.dto';
@@ -85,12 +85,8 @@ export class OrderController {
     return this.orderService.saveMealCodeByPkgId(data);
   }
 
-  @Get('rider/location/h5')
-  async orderRiderLocationH5(@Query('mt_peisong_id') mtPeisongId: string) {
-    return await this.orderService.orderRiderLocationH5(mtPeisongId);
-  }
-
   @Post('status/callback')
+  @HttpCode(200)
   async orderStatusCallback(@Body() formData: Record<string, any>) {
     try {
       let resData = this.orderservice.checkSignature(formData)
@@ -107,6 +103,7 @@ export class OrderController {
   }
 
   @Post('exception/callback')
+  @HttpCode(200)
   async orderExceptionCallback(@Body() formData: Record<string, any>) {
     try {
       let resData = this.orderservice.checkSignature(formData)
@@ -123,7 +120,25 @@ export class OrderController {
   }
 
   @Post('mealloss/callback')
+  @HttpCode(200)
   async orderMeallossCallback(@Body() formData: Record<string, any>) {
+    try {
+      let resData = this.orderservice.checkSignature(formData)
+        ? { code: 0, message: '接口请求成功' }
+        : { code: 500, message: '接口请求失败' };
+
+      return resData;
+    } catch (error) {
+      return {
+        code: 500,
+        message: error,
+      };
+    }
+  }
+
+  @Post('deliveryCode/callback')
+  @HttpCode(200)
+  async orderDeliveryCodeCallback(@Body() formData: Record<string, any>) {
     try {
       let resData = this.orderservice.checkSignature(formData)
         ? { code: 0, message: '接口请求成功' }

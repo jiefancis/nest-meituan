@@ -6,7 +6,6 @@ import {
   queryOrderRiderLocation,
   orderDelete,
   saveMealCodeByPkgId,
-  orderRiderLocationH5,
 } from '@meituanApi/order';
 import { ConfigService } from '@nestjs/config';
 // import { InjectLogger } from '@nestjs/common/services';
@@ -44,9 +43,5 @@ export class OrderService extends BaseCallbackService {
 
   async saveMealCodeByPkgId(data) {
     return await saveMealCodeByPkgId(data);
-  }
-
-  async orderRiderLocationH5(mt_peisong_id) {
-    return await orderRiderLocationH5({ mt_peisong_id });
   }
 }

@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  HttpCode,
   Post,
   Query,
   Req,
@@ -95,6 +96,7 @@ export class ShopController {
   }
 
   @Post('status/callback')
+  @HttpCode(200)
   async shopStatusCallback(@Body() formData: Record<string, any>) {
     try {
       let resData = this.shopService.checkSignature(formData)
@@ -111,6 +113,7 @@ export class ShopController {
   }
 
   @Post('deliveryRange/callback')
+  @HttpCode(200)
   async shopDeliveryCallback(@Body() formData: Record<string, any>) {
     try {
       let resData = this.shopService.checkSignature(formData)
@@ -127,6 +130,7 @@ export class ShopController {
   }
 
   @Post('deliveryRisk/callback')
+  @HttpCode(200)
   async shopDeliveryRiskCallback(@Body() formData: Record<string, any>) {
     try {
       let resData = this.shopService.checkSignature(formData)
@@ -143,7 +147,25 @@ export class ShopController {
   }
 
   @Post('deliverymanClock/callback')
+  @HttpCode(200)
   async shopDeliveryManClockCallback(@Body() formData: Record<string, any>) {
+    try {
+      let resData = this.shopService.checkSignature(formData)
+        ? { code: 0, message: '接口请求成功' }
+        : { code: 500, message: '接口请求失败' };
+
+      return resData;
+    } catch (error) {
+      return {
+        code: 500,
+        message: error,
+      };
+    }
+  }
+
+  @Post('info/change/callback')
+  @HttpCode(200)
+  async shopInfoChangeCallback(@Body() formData: Record<string, any>) {
     try {
       let resData = this.shopService.checkSignature(formData)
         ? { code: 0, message: '接口请求成功' }

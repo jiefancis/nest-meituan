@@ -13,7 +13,6 @@ export const PEISONTAPI = {
   orderRiderLocation: '/order/rider/location', // 获取骑手位置
   orderDelete: '/order/delete', // 订单取消
   mealCode: '/mealCode/saveMealCodeByPkgId', //取餐码信息下发
-  orderRiderLocationH5: '/order/rider/location/h5url', // 获取骑手位置H5
 
   fileImageUpload: '/file/image/upload', // 图片上传
 };
